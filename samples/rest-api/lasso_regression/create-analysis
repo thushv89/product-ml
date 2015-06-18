@@ -1,0 +1,5 @@
+{
+"name" : "wso2-ml-lasso-regression-sample-analysis",
+"comments" : "Lasso regression for Boston housing prices",
+"projectId" : 1
+}

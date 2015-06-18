@@ -104,11 +104,14 @@
                                 <featureArtifactDef>
                                     org.wso2.carbon.registry:org.wso2.carbon.registry.ui.menu.feature:${carbon.registry.version}
                                 </featureArtifactDef>
+				<featureArtifactDef>
+                                    org.wso2.carbon.registry:org.wso2.carbon.registry.contentsearch.feature:${carbon.registry.version}
+                                </featureArtifactDef>
                                 <featureArtifactDef>
                                     org.wso2.carbon.registry:org.wso2.carbon.registry.resource.properties.feature:${carbon.registry.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
-                                    org.wso2.carbon:org.wso2.carbon.ml.feature:${ml.version}
+                                    org.wso2.carbon.ml:org.wso2.carbon.ml.feature:${carbon.ml.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
                                     org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.common.feature:${carbon.multitenancy.version}
@@ -170,16 +173,43 @@
                                 <featureArtifactDef>
                                     org.jaggeryjs.modules:uuid.feature:${uuid.feature.version}
                                 </featureArtifactDef>
+                                
+                                <!-- Application management Feature -->
                                 <featureArtifactDef>
-                                    org.wso2.carbon.deployment:org.wso2.carbon.webapp.mgt.server.feature:${carbon.deployment.version}
+                                     org.wso2.carbon.deployment:org.wso2.carbon.webapp.mgt.server.feature:${carbon.deployment.version}
                                 </featureArtifactDef>
-				<!-- carbon analytics features -->
+                                 <featureArtifactDef>
+                                    org.wso2.carbon.deployment:org.wso2.carbon.webapp.mgt.feature:${carbon.deployment.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                    org.wso2.carbon.commons:org.wso2.carbon.application.mgt.feature:${carbon.commons.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                	org.wso2.carbon.deployment:org.wso2.carbon.as.runtimes.cxf.feature:${carbon.deployment.version}
+                                </featureArtifactDef>
+                                
+                                <!-- Email Adapter Feature -->
+                                <featureArtifactDef>
+                                     org.wso2.carbon.analytics-common:org.wso2.carbon.event.output.adapter.server.feature:${carbon.analytics.common.version}
+                                </featureArtifactDef>
+				
+				<!-- WSO2 DAS integration -->
 				<featureArtifactDef>
-                                    org.wso2.carbon.analytics:org.wso2.carbon.analytics.core.server.feature:${carbon.analytics.version}
+                                     org.wso2.carbon.analytics:org.wso2.carbon.analytics.spark.server.feature:${carbon.analytics.version}
                                 </featureArtifactDef>
 				<featureArtifactDef>
-                                    org.wso2.carbon.analytics:org.wso2.carbon.analytics.datasource.feature:${carbon.analytics.version}
+                                     org.wso2.carbon.analytics:org.wso2.carbon.analytics.core.server.feature:${carbon.analytics.version}
                                 </featureArtifactDef>
+				<featureArtifactDef>
+                                     org.wso2.carbon.analytics:org.wso2.carbon.analytics.datasource.feature:${carbon.analytics.version}
+                                </featureArtifactDef>
+				<featureArtifactDef>
+                                     org.wso2.carbon.data:org.wso2.carbon.datasource.reader.hadoop.server.feature:${carbon.data.version}
+                                </featureArtifactDef>
+				<!-- carbon metrics -->
+				<featureArtifactDef>
+    				     org.wso2.carbon.metrics:org.wso2.carbon.metrics.feature:${carbon.metrics.version}
+				</featureArtifactDef>
                             </featureArtifacts>
                         </configuration>
                     </execution>
@@ -221,6 +251,10 @@
                                 </feature>
                                 <feature>
                                     <id>org.wso2.carbon.registry.core.feature.group</id>
+                                    <version>${carbon.registry.version}</version>
+                                </feature>
+				<feature>
+                                    <id>org.wso2.carbon.registry.contentsearch.feature.group</id>
                                     <version>${carbon.registry.version}</version>
                                 </feature>
                                 <feature>
@@ -278,7 +312,7 @@
                                 </feature>
                                 <feature>
                                     <id>org.wso2.carbon.ml.feature.group</id>
-                                    <version>${ml.version}</version>
+                                    <version>${carbon.ml.version}</version>
                                 </feature>
                                 <!--Jaggery Features-->
                                 <feature>
@@ -309,19 +343,55 @@
                                     <id>org.jaggeryjs.modules.uuid.feature.group</id>
                                     <version>${uuid.feature.version}</version>
                                 </feature>
+
+                                <!-- Application Management features -->
                                 <feature>
                                     <id>org.wso2.carbon.webapp.mgt.server.feature.group</id>
                                     <version>${carbon.deployment.version}</version>
                                 </feature>
-				<!-- carbon analytics features -->
                                 <feature>
+                                    <id>org.wso2.carbon.webapp.mgt.feature.group</id>
+                                    <version>${carbon.deployment.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.application.mgt.feature.group</id>
+                                    <version>${carbon.commons.version}</version>
+                                </feature>
+
+                                <!-- CXF Runtime feature -->
+                            	<feature>
+                                    <id>org.wso2.carbon.as.runtimes.cxf.feature.group</id>
+                                    <version>${carbon.deployment.version}</version>
+                                </feature>
+                                
+                                <!-- Email Adapter Feature -->
+                                <feature>
+                                    <id>org.wso2.carbon.event.output.adapter.server.feature.group</id>
+                                    <version>${carbon.analytics.common.version}</version>
+                                </feature>
+				
+				<!-- WSO2 DAS related features -->
+				<feature>
+                                    <id>org.wso2.carbon.analytics.spark.server.feature.group</id>
+                                    <version>${carbon.analytics.version}</version>
+                                </feature>
+				<feature>
                                     <id>org.wso2.carbon.analytics.core.server.feature.group</id>
-				    <version>${carbon.analytics.version}</version>
+                                    <version>${carbon.analytics.version}</version>
                                 </feature>
-                                <feature>
+				<feature>
                                     <id>org.wso2.carbon.analytics.datasource.feature.group</id>
-				    <version>${carbon.analytics.version}</version>
+                                    <version>${carbon.analytics.version}</version>
                                 </feature>
+				<feature>
+                                    <id>org.wso2.carbon.datasource.reader.hadoop.server.feature.group</id>
+                                    <version>${carbon.data.version}</version>
+                                </feature>
+				<!-- carbon metrics -->
+				<feature>
+    				    <id>org.wso2.carbon.metrics.feature.group</id>
+    			            <version>${carbon.metrics.version}</version>
+				</feature>
                             </features>
                         </configuration>
                     </execution>
@@ -350,5 +420,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
