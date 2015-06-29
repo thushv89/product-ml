@@ -212,10 +212,22 @@
 				<featureArtifactDef>
                                      org.wso2.carbon.data:org.wso2.carbon.datasource.reader.hadoop.server.feature:${carbon.data.version}
                                 </featureArtifactDef>
+				<featureArtifactDef>
+				     org.wso2.carbon.analytics:org.wso2.carbon.analytics.api.client.feature:${carbon.analytics.version}
+                                </featureArtifactDef>
 				<!-- carbon metrics -->
 				<featureArtifactDef>
     				     org.wso2.carbon.metrics:org.wso2.carbon.metrics.feature:${carbon.metrics.version}
 				</featureArtifactDef>
+                                <featureArtifactDef>
+                                    org.wso2.ml:org.wso2.ml.styles.feature:${ml.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                    org.wso2.carbon.ml:org.wso2.carbon.ml.siddhi.extension.feature:${carbon.ml.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                    org.wso2.carbon.ml:org.wso2.carbon.ml.mediator.predict.feature:${carbon.ml.version}
+                                </featureArtifactDef>
                             </featureArtifacts>
                         </configuration>
                     </execution>
@@ -259,10 +271,11 @@
                                     <id>org.wso2.carbon.registry.core.feature.group</id>
                                     <version>${carbon.registry.version}</version>
                                 </feature>
-				<feature>
+				<!-- temporarily commenting out - please refer dev@ discussion - WebApp classloading issue -->
+				<!--feature>
                                     <id>org.wso2.carbon.registry.contentsearch.feature.group</id>
                                     <version>${carbon.registry.version}</version>
-                                </feature>
+                                </feature-->
                                 <feature>
                                     <id>org.wso2.carbon.registry.ui.menu.feature.group</id>
                                     <version>${carbon.registry.version}</version>
@@ -319,6 +332,10 @@
                                 <feature>
                                     <id>org.wso2.carbon.ml.feature.group</id>
                                     <version>${carbon.ml.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.ml.styles.feature.group</id>
+                                    <version>${ml.version}</version>
                                 </feature>
                                 <!--Jaggery Features-->
                                 <feature>
@@ -391,6 +408,10 @@
                                 </feature>
 				<feature>
                                     <id>org.wso2.carbon.analytics.core.server.feature.group</id>
+                                    <version>${carbon.analytics.version}</version>
+                                </feature>
+				<feature>
+                                    <id>org.wso2.carbon.analytics.api.client.feature.group</id>
                                     <version>${carbon.analytics.version}</version>
                                 </feature>
 				<feature>
