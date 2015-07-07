@@ -19,6 +19,7 @@
 package org.wso2.carbon.ml.lifecycle.test;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -37,10 +38,10 @@ import java.io.IOException;
 import static org.testng.AssertJUnit.assertEquals;
 
 /**
- * This class contains the entire ML life-cycle for Azure Streaming dataset
+ * This class contains the entire ML life-cycle for a dataset resides in DAS tables.
  */
-@Test(groups = "AzureStreamingDataset")
-public class Dataset7AzureStreamingTestCase extends MLBaseTest {
+@Test(groups = "dasDataset")
+public class Dataset8DASDataTestCase extends MLBaseTest {
 
     private MLHttpClient mlHttpclient;
     private static String modelName;
@@ -54,11 +55,11 @@ public class Dataset7AzureStreamingTestCase extends MLBaseTest {
         super.init();
         mlHttpclient = getMLHttpClient();
         String version = "1.0";
-        int datasetId = createDataset(MLIntegrationTestConstants.DATASET_NAME_AZURE_STREAMING, version,
-                MLIntegrationTestConstants.AZURE_STREAMING_DATASET_SAMPLE);
+        int datasetId = createDatasetFromDASTable(MLIntegrationTestConstants.DATASET_NAME_DAS, version,
+                MLIntegrationTestConstants.DAS_DATASET_SAMPLE);
         versionSetId = getVersionSetId(datasetId, version);
-        projectId = createProject(MLIntegrationTestConstants.PROJECT_NAME_AZURE_STREAMING,
-                MLIntegrationTestConstants.DATASET_NAME_AZURE_STREAMING);
+        projectId = createProject(MLIntegrationTestConstants.PROJECT_NAME_DAS,
+                MLIntegrationTestConstants.DATASET_NAME_DAS);
     }
 
     /**
@@ -74,8 +75,14 @@ public class Dataset7AzureStreamingTestCase extends MLBaseTest {
     private void buildModelWithLearningAlgorithm(String algorithmName, String algorithmType)
             throws MLHttpClientException, IOException, JSONException, InterruptedException {
         modelName = MLTestUtils.setConfiguration(algorithmName, algorithmType,
-                MLIntegrationTestConstants.RESPONSE_ATTRIBUTE_AZURE_STREAMING,
-                MLIntegrationTestConstants.TRAIN_DATA_FRACTION, projectId, versionSetId, mlHttpclient);
+                MLIntegrationTestConstants.RESPONSE_ATTRIBUTE_DAS, MLIntegrationTestConstants.TRAIN_DATA_FRACTION,
+                projectId, versionSetId, mlHttpclient);
+        String payload = "[{\"name\" : \"id\",\"tenantId\" : -1234,\"type\" : \"NUMERICAL\",\"include\" : false,\"imputeOption\": \"DISCARD\"}, "
+                + "{\"name\" : \"meta_type\",\"tenantId\" : -1234,\"type\" : \"NUMERICAL\",\"include\" : false,\"imputeOption\": \"DISCARD\"}, "
+                + "{\"name\" : \"property\",\"tenantId\" : -1234,\"type\" : \"NUMERICAL\",\"include\" : false,\"imputeOption\": \"DISCARD\"}, "
+                + "{\"name\" : \"timeStamp\",\"tenantId\" : -1234,\"type\" : \"NUMERICAL\",\"include\" : false,\"imputeOption\": \"DISCARD\"}]";
+        int analysisId = mlHttpclient.getAnalysisId(projectId, algorithmName + versionSetId);
+        mlHttpclient.setFeatureCustomized(analysisId, payload);
         modelId = mlHttpclient.getModelId(modelName);
         response = mlHttpclient.doHttpPost("/api/models/" + modelId, null);
         assertEquals("Unexpected response received", Response.Status.OK.getStatusCode(), response.getStatusLine()
@@ -89,16 +96,36 @@ public class Dataset7AzureStreamingTestCase extends MLBaseTest {
     }
 
     /**
-     * Creates a test case for creating an analysis, building a K-Means clustering
+     * Creates a test case for creating an analysis, building a Linear Regression model and predicting using the built
+     * model
      * 
      * @throws MLHttpClientException
      * @throws IOException
      * @throws JSONException
      * @throws InterruptedException
      */
-    @Test(description = "Build a K-means model", groups = "createKMeansAzureStreaming")
-    public void testBuildKMeansModel() throws MLHttpClientException, IOException, JSONException, InterruptedException {
-        buildModelWithLearningAlgorithm("K_MEANS", MLIntegrationTestConstants.CLUSTERING);
+    @Test(description = "Build a linear regression model and predict for DAS dataset", groups = "createLinearRegressionModelDAS")
+    public void testBuildLinearRegressionModel() throws MLHttpClientException, IOException, JSONException,
+            InterruptedException {
+        buildModelWithLearningAlgorithm("LINEAR_REGRESSION", MLIntegrationTestConstants.NUMERICAL_PREDICTION);
+        // Predict using built Linear Regression model
+        testPredictDAS();
+    }
+
+    /**
+     * A test case for predicting for a given set of data points
+     * 
+     * @throws MLHttpClientException
+     * @throws JSONException
+     */
+    private void testPredictDAS() throws MLHttpClientException, JSONException {
+        String payload = "[[21,3,2],[211,1,7]]";
+        response = mlHttpclient.doHttpPost("/api/models/" + modelId + "/predict", payload);
+        assertEquals("Unexpected response received", Response.Status.OK.getStatusCode(), response.getStatusLine()
+                .getStatusCode());
+        String reply = mlHttpclient.getResponseAsString(response);
+        JSONArray predictions = new JSONArray(reply);
+        assertEquals(2, predictions.length());
     }
 
     @AfterClass(alwaysRun = true)

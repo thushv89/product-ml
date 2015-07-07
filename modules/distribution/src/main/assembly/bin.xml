@@ -132,18 +132,24 @@
             </includes>
         </fileSet>
 
+	<fileSet>
+            <directory>
+                ../p2-profile/target/wso2carbon-core-${carbon.kernel.version}/repository/conf/spark/
+            </directory>
+            <outputDirectory>${pom.artifactId}-${pom.version}/repository/conf/spark</outputDirectory>
+            <includes>
+                <include>**/**</include>
+            </includes>
+	    <excludes>
+		<exclude>**/spark-defaults.conf</exclude>
+	    </excludes>
+
+        </fileSet>
+
         <fileSet>
             <directory>../p2-profile/target/wso2carbon-core-${carbon.kernel.version}/dbscripts/identity
             </directory>
             <outputDirectory>wso2ml-${pom.version}/dbscripts/identity</outputDirectory>
-            <includes>
-                <include>**/**.sql</include>
-            </includes>
-        </fileSet>
-
-        <fileSet>
-            <directory>src/main/resources/dbscripts</directory>
-            <outputDirectory>wso2ml-${pom.version}/dbscripts/ml</outputDirectory>
             <includes>
                 <include>**/**.sql</include>
             </includes>
@@ -165,7 +171,27 @@
             	<include>**/*.sql</include>
             </includes>
     	</fileSet>
+	<fileSet>
+            <directory>
+                ../p2-profile/target/wso2carbon-core-${carbon.kernel.version}/dbscripts/ml/
+            </directory>
+            <outputDirectory>wso2ml-${pom.version}/dbscripts/ml</outputDirectory>
+            <includes>
+                <include>**/*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>
+                ../p2-profile/target/wso2carbon-core-${carbon.kernel.version}/repository/deployment/server/jaggeryapps/
+            </directory>
+            <outputDirectory>wso2ml-${pom.version}/repository/deployment/server/jaggeryapps</outputDirectory>
+            <includes>
+                <include>**/*.*</include>
+            </includes>
+        </fileSet>
     </fileSets>
+
+
 	
     <files>
         <file>
@@ -268,12 +294,16 @@
             <source>src/main/conf/etc/spark-config.xml</source>
             <outputDirectory>${pom.artifactId}-${pom.version}/repository/conf/etc/</outputDirectory>
         </file>
-	    <file>
-            <source>target/database/WSO2ML_DB.h2.db</source>
-            <outputDirectory>wso2ml-${pom.version}/repository/database</outputDirectory>
-            <fileMode>666</fileMode>
+	<file>
+            <source>src/main/conf/spark/spark-defaults.conf</source>
+            <outputDirectory>${pom.artifactId}-${pom.version}/repository/conf/spark/</outputDirectory>
         </file>
-		<file>
+	<file>
+            <source>../p2-profile/target/wso2carbon-core-${carbon.kernel.version}/repository/database/WSO2ML_DB.h2.db</source>
+            <outputDirectory>${pom.artifactId}-${pom.version}/repository/database/</outputDirectory>
+            <fileMode>644</fileMode>
+        </file>
+	<file>
             <source>src/main/conf/etc/ml-email-templates.xml</source>
             <outputDirectory>${pom.artifactId}-${pom.version}/repository/conf/email/</outputDirectory>
         </file>
