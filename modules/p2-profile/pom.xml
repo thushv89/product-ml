@@ -113,15 +113,15 @@
                                 <featureArtifactDef>
                                     org.wso2.carbon.ml:org.wso2.carbon.ml.feature:${carbon.ml.version}
                                 </featureArtifactDef>
-                                <featureArtifactDef>
-                                    org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.common.feature:${carbon.multitenancy.version}
-                                </featureArtifactDef>
-                                <featureArtifactDef>
-                                    org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.usage.agent.feature:${carbon.multitenancy.version}
-                                </featureArtifactDef>
-                                <featureArtifactDef>
-                                    org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.throttling.agent.feature:${carbon.multitenancy.version}
-                                </featureArtifactDef>
+                                <!--<featureArtifactDef>-->
+                                    <!--org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.common.feature:${carbon.multitenancy.version}-->
+                                <!--</featureArtifactDef>-->
+                                <!--<featureArtifactDef>-->
+                                    <!--org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.usage.agent.feature:${carbon.multitenancy.version}-->
+                                <!--</featureArtifactDef>-->
+                                <!--<featureArtifactDef>-->
+                                    <!--org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.throttling.agent.feature:${carbon.multitenancy.version}-->
+                                <!--</featureArtifactDef>-->
                                 <featureArtifactDef>
                                     org.wso2.carbon.multitenancy:org.wso2.carbon.tenant.deployment.feature:${carbon.multitenancy.version}
                                 </featureArtifactDef>
@@ -182,9 +182,6 @@
                                     org.wso2.carbon.deployment:org.wso2.carbon.webapp.mgt.feature:${carbon.deployment.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
-                                    org.wso2.carbon.commons:org.wso2.carbon.application.mgt.feature:${carbon.commons.version}
-                                </featureArtifactDef>
-                                <featureArtifactDef>
                                 	org.wso2.carbon.deployment:org.wso2.carbon.as.runtimes.cxf.feature:${carbon.deployment.version}
                                 </featureArtifactDef>
                                 
@@ -211,6 +208,9 @@
                                 </featureArtifactDef>
 				<featureArtifactDef>
                                      org.wso2.carbon.data:org.wso2.carbon.datasource.reader.hadoop.server.feature:${carbon.data.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                    org.wso2.carbon.data:org.wso2.carbon.datasource.reader.cassandra.server.feature:${carbon.data.version}
                                 </featureArtifactDef>
 				<featureArtifactDef>
 				     org.wso2.carbon.analytics:org.wso2.carbon.analytics.api.client.feature:${carbon.analytics.version}
@@ -283,19 +283,22 @@
                                     <id>org.wso2.carbon.registry.resource.properties.feature.group</id>
                                     <version>${carbon.registry.version}</version>
                                 </feature>
+
+                                <!-- Commenting out multitenancy features since ML does not support it -->
+
                                 <!--Start Stratos features-->
-                                <feature>
-                                    <id>org.wso2.carbon.tenant.usage.agent.feature.group</id>
-                                    <version>${carbon.multitenancy.version}</version>
-                                </feature>
-                                <feature>
-                                    <id>org.wso2.carbon.tenant.throttling.agent.feature.group</id>
-                                    <version>${carbon.multitenancy.version}</version>
-                                </feature>
-                                <feature>
-                                    <id>org.wso2.carbon.tenant.common.feature.group</id>
-                                    <version>${carbon.multitenancy.version}</version>
-                                </feature>
+                                <!--<feature>-->
+                                    <!--<id>org.wso2.carbon.tenant.usage.agent.feature.group</id>-->
+                                    <!--<version>${carbon.multitenancy.version}</version>-->
+                                <!--</feature>-->
+                                <!--<feature>-->
+                                    <!--<id>org.wso2.carbon.tenant.throttling.agent.feature.group</id>-->
+                                    <!--<version>${carbon.multitenancy.version}</version>-->
+                                <!--</feature>-->
+                                <!--<feature>-->
+                                    <!--<id>org.wso2.carbon.tenant.common.feature.group</id>-->
+                                    <!--<version>${carbon.multitenancy.version}</version>-->
+                                <!--</feature>-->
                                 <feature>
                                     <id>org.wso2.carbon.tenant.deployment.feature.group</id>
                                     <version>${carbon.multitenancy.version}</version>
@@ -375,10 +378,6 @@
                                     <id>org.wso2.carbon.webapp.mgt.feature.group</id>
                                     <version>${carbon.deployment.version}</version>
                                 </feature>
-                                <feature>
-                                    <id>org.wso2.carbon.application.mgt.feature.group</id>
-                                    <version>${carbon.commons.version}</version>
-                                </feature>
 
                                 <!-- CXF Runtime feature -->
                             	<feature>
@@ -419,6 +418,10 @@
                                 </feature>
 				<feature>
                                     <id>org.wso2.carbon.datasource.reader.hadoop.server.feature.group</id>
+                                    <version>${carbon.data.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.datasource.reader.cassandra.server.feature.group</id>
                                     <version>${carbon.data.version}</version>
                                 </feature>
 				<!-- carbon metrics -->

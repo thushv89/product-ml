@@ -63,6 +63,7 @@ public class ExternalDataset1DigitRecognitionTestCase extends MLBaseTest {
         int datasetId = createDataset(MLIntegrationTestConstants.DATASET_NAME_DIGITS, version,
                 MLIntegrationTestConstants.DIGIT_RECOGNITION_DATASET_SAMPLE);
         versionSetId = getVersionSetId(datasetId, version);
+        isDatasetProcessed(versionSetId, MLIntegrationTestConstants.THREAD_SLEEP_TIME_LARGE, 1000);
         projectId = createProject(MLIntegrationTestConstants.PROJECT_NAME_DIGITS,
                 MLIntegrationTestConstants.DATASET_NAME_DIGITS);
     }
@@ -79,7 +80,7 @@ public class ExternalDataset1DigitRecognitionTestCase extends MLBaseTest {
      */
     private void buildModelWithLearningAlgorithm(String algorithmName, String algorithmType)
             throws MLHttpClientException, IOException, JSONException, InterruptedException {
-        modelName = MLTestUtils.setConfiguration(algorithmName, algorithmType,
+        modelName = MLTestUtils.createModelWithConfigurations(algorithmName, algorithmType,
                 MLIntegrationTestConstants.RESPONSE_ATTRIBUTE_DIGITS, MLIntegrationTestConstants.TRAIN_DATA_FRACTION,
                 projectId, versionSetId, mlHttpclient);
         modelId = mlHttpclient.getModelId(modelName);

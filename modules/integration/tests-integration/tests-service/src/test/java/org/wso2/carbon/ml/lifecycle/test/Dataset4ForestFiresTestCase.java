@@ -58,6 +58,7 @@ public class Dataset4ForestFiresTestCase extends MLBaseTest {
         int datasetId = createDataset(MLIntegrationTestConstants.DATASET_NAME_FOREST_FIRES, version,
                 MLIntegrationTestConstants.FOREST_FIRES_DATASET_SAMPLE);
         versionSetId = getVersionSetId(datasetId, version);
+        isDatasetProcessed(versionSetId, MLIntegrationTestConstants.THREAD_SLEEP_TIME_LARGE, 1000);
         projectId = createProject(MLIntegrationTestConstants.PROJECT_NAME_FOREST_FIRES,
                 MLIntegrationTestConstants.DATASET_NAME_FOREST_FIRES);
     }
@@ -90,7 +91,7 @@ public class Dataset4ForestFiresTestCase extends MLBaseTest {
      */
     private void buildModelWithLearningAlgorithm(String algorithmName, String algorithmType)
             throws MLHttpClientException, IOException, JSONException, InterruptedException {
-        modelName = MLTestUtils.setConfiguration(algorithmName, algorithmType,
+        modelName = MLTestUtils.createModelWithConfigurations(algorithmName, algorithmType,
                 MLIntegrationTestConstants.RESPONSE_ATTRIBUTE_FOREST_FIRES,
                 MLIntegrationTestConstants.TRAIN_DATA_FRACTION, projectId, versionSetId, mlHttpclient);
         modelId = mlHttpclient.getModelId(modelName);

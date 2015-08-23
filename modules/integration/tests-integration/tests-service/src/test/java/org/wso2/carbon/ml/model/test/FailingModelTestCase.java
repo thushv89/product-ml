@@ -59,6 +59,7 @@ public class FailingModelTestCase extends MLBaseTest {
         int datasetId = createDataset(MLIntegrationTestConstants.DATASET_NAME_AUTOMOBILE, version,
                 MLIntegrationTestConstants.AUTOMOBILE_DATASET_SAMPLE);
         versionSetId = getVersionSetId(datasetId, version);
+        isDatasetProcessed(versionSetId, MLIntegrationTestConstants.THREAD_SLEEP_TIME_LARGE, 1000);
         projectId = createProject(MLIntegrationTestConstants.PROJECT_NAME_AUTOMOBILE,
                 MLIntegrationTestConstants.DATASET_NAME_AUTOMOBILE);
         analysisId = createAnalysis(MLIntegrationTestConstants.ANALYSIS_NAME, projectId);
@@ -96,7 +97,7 @@ public class FailingModelTestCase extends MLBaseTest {
      */
     private void buildModelWithLearningAlgorithm(String algorithmName, String algorithmType)
             throws MLHttpClientException, IOException, JSONException, InterruptedException {
-        modelName = MLTestUtils.setConfiguration(algorithmName, algorithmType,
+        modelName = MLTestUtils.createModelWithConfigurations(algorithmName, algorithmType,
                 MLIntegrationTestConstants.RESPONSE_ATTRIBUTE_DIABETES, MLIntegrationTestConstants.TRAIN_DATA_FRACTION,
                 projectId, versionSetId, analysisId, mlHttpclient);
         modelId = mlHttpclient.getModelId(modelName);
